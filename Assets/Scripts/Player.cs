@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
+    #region variables
     private Vector2 player_position;
     float speed = 500;
     Animator anim;
+    enum Direction { down, up, down_idle, up_idle, left, right, left_idle, right_idle };
+    Direction dir;
+    #endregion
 
-	// Use this for initialization
+    // Use this for initialization
 	void Start () {
         anim = GetComponent<Animator>();
 	}
@@ -16,8 +21,7 @@ public class Player : MonoBehaviour {
         MovePlayer();
 	}
 
-    enum Direction { down, up }
-    Direction dir;
+    
 
     void MovePlayer()
     {
@@ -26,20 +30,34 @@ public class Player : MonoBehaviour {
         
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-           anim.SetInteger("direction", 1);
+           anim.SetInteger("direction", (int)Direction.up);
            dir=Direction.up;
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            anim.SetInteger("direction", 0);
+            anim.SetInteger("direction", (int)Direction.down);
             dir=Direction.down;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            anim.SetInteger("direction", (int)Direction.left);
+            dir = Direction.left;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            anim.SetInteger("direction", (int)Direction.right);
+            dir = Direction.right;
         }
         else if (Input.anyKey == false)
         {
-            if(dir == Direction.up)
-                anim.SetInteger("direction", 3);
-            else if(dir == Direction.down)
-                anim.SetInteger("direction", 2);
+            if (dir == Direction.up)
+                anim.SetInteger("direction", (int)Direction.up_idle);
+            else if (dir == Direction.down)
+                anim.SetInteger("direction", (int)Direction.down_idle);
+            else if (dir == Direction.left)
+                anim.SetInteger("direction", (int)Direction.left_idle);
+            else if (dir == Direction.right)
+                anim.SetInteger("direction", (int)Direction.right_idle);
         }
         
        
