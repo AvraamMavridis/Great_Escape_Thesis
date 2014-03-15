@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class Enemy1 : MonoBehaviour {
 
     private Vector2 screen_end_coordinates;
